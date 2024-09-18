@@ -26,3 +26,4 @@ try{
   
 }
 }
+export{uploadOnCloudinary}
