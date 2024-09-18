@@ -22,14 +22,10 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ exdended: true, limit: "16kb" }));
 
 
-
+// routs declerations
 
 import userRouter from "./routes/user.routs.js"
 
-
-
-
-// routs declerations
 
 app.use("/api/v1/users",userRouter)
 

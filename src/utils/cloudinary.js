@@ -15,6 +15,7 @@ try{
         resource_type:"auto"//check the type of file
     })
     console.log("file uploaded successfully on cloudinary", response.url);
+    fs.unlinkSync(localFilePath);
            return response;
 
 
