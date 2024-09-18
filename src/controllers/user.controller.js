@@ -1,6 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import {User} from "../models/user.model.js"
 import{uploadOnCloudinary} from "../utils/uploadOnCloudinary.js"
+import {ApiRespose} from '../utils/ApiResponse.js'
 
 import{ApiError} from "../utils/ApiError.js"
 const registerUser = asyncHandler(async (req, res) => {
@@ -38,7 +39,7 @@ User.findOne({
 if(existedUser){
     throw new ApiError(409,"email or username already exist")
 }
-
+// handle the files 
 const avatarLocalPath=req.files?.avatar[0]?.path;
 const coverImageLocalPath= req.files.coverImage[0]?.path;
 if(!avatarLocalPath){
@@ -58,10 +59,19 @@ const user = await User.create({
     password,
     username:username.toLowerCase(),
 }) 
+// check if user is created successfully 
  const CreatedUser = await User.findById(user._id).select(
     "-password  -refreshToken"
  )
 
+
+ if(!CreatedUser){
+    throw new ApiError(500,"Failed to create user")
+ }
+
+ return res.status(201).json(
+    new ApiRespose(200, CreatedUser, "User regesterd successfully ")
+ )
 });
 
 export { registerUser };
