@@ -156,4 +156,4 @@ const LoggoutUser= asyncHandler (async(req, res)=>{
     // cookies will be cleared
 })
 
-export { registerUser, LoginUser };
+export { registerUser, LoginUser ,LoggoutUser};
